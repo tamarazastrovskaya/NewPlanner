@@ -1,19 +1,14 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TodoApp.Models;
 
 namespace TodoApp.Services
 {
     class FileIOService
     {
-        private readonly string PATH;  
-        
+        private readonly string PATH;
+
         public FileIOService(string path)
         {
             PATH = path;

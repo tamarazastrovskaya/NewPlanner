@@ -1,14 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TodoApp.Models
 {
-    class TodoModel: INotifyPropertyChanged
+    class TodoModel : INotifyPropertyChanged
 
     {
         [JsonProperty(PropertyName = "creationDate")]
@@ -16,11 +12,12 @@ namespace TodoApp.Models
 
         private bool _IsDone;
 
-        [JsonProperty(PropertyName = "creationDate")]
+        [JsonProperty(PropertyName = "isDone")]
         public bool IsDone
         {
             get { return _IsDone; }
-            set {
+            set
+            {
                 if (_IsDone == value)
                     return;
                 _IsDone = value;
@@ -31,7 +28,7 @@ namespace TodoApp.Models
 
         private string _text;
 
-        [JsonProperty(PropertyName = "creationDate")]
+        [JsonProperty(PropertyName = "text")]
         public string Text
         {
             get { return _text; }
@@ -46,7 +43,7 @@ namespace TodoApp.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName ="")
+        protected virtual void OnPropertyChanged(string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
