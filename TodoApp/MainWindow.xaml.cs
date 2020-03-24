@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TodoApp.Models;
+using TodoApp.Services;
 
 namespace TodoApp
 {
@@ -22,7 +23,9 @@ namespace TodoApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private BindingList<TodoModel> _todoDate;
+        private readonly string PATH = $"{Environment.CurrentDirectory}\\todoDateList.json";
+        private BindingList<TodoModel> _todoDateList;
+        private FileIOService _fileIOService;
         public MainWindow()
         {
             InitializeComponent();
@@ -30,13 +33,43 @@ namespace TodoApp
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _todoDate = new BindingList<TodoModel>()
-            {
-            new TodoModel(){Text = "text"},
-            new TodoModel(){Text ="tododo"}
-            };
-            dgTodoList.ItemsSource = _todoDate;
+            _fileIOService = new FileIOService(PATH);
 
+            try
+            {
+                _todoDateList = _fileIOService.LoadDate();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+                Close();
+            }
+           
+
+            dgTodoList.ItemsSource = _todoDateList;
+            _todoDateList.ListChanged += _todoDateList_ListChanged;
+
+        }
+
+        private void _todoDateList_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            if(e.ListChangedType == ListChangedType.ItemAdded || e.ListChangedType== ListChangedType.ItemDeleted || e.ListChangedType== ListChangedType.ItemChanged)
+            {
+
+                try
+                {
+                    _fileIOService.SaveDate(sender);
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                    Close();
+                }
+
+
+            }
         }
     }
 }
