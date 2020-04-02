@@ -130,7 +130,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Config.cs" />
+    <Compile Include="FirstService.cs" />
     <Compile Include="Services\FileIOService.cs" />
+    <Compile Include="Services\LogFactory.cs" />
     <Compile Include="Services\Logging\FileLogger.cs" />
     <Compile Include="Services\Logging\FileLoggerProvider.cs" />
     <Page Include="MainWindow.xaml">
